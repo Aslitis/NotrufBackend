@@ -19,12 +19,18 @@ import javax.swing.JOptionPane;
 import htw.projektarbeit.audio.AudioThread;
 
 public class UdpClient {
-    private DatagramSocket socket;
+    private DatagramSocket socketIn;
+    private DatagramSocket socketOut;
+    //private DatagramSocket socket;
     private InetAddress address;
+    private int port = 4445;
     private byte[] datagram;
 
     public UdpClient(String ip) throws SocketException, UnknownHostException{
-        socket = new DatagramSocket();
+        //Client: Versende Packete über Port 4446, Empfange Packete an Port 4445
+        socketOut = new DatagramSocket(4446); //4446
+        socketIn = new DatagramSocket(4445); //4445
+        //socket = new DatagramSocket(4445);
         address = InetAddress.getByName(ip); //134.96.217.36
     }
 
@@ -32,12 +38,14 @@ public class UdpClient {
         datagram = msg.getBytes();
         DatagramPacket packet = new DatagramPacket(datagram, datagram.length, address, 4445);
         System.out.println("Client: Sende packet " + msg);
-        socket.send(packet);
+        socketOut.send(packet);
         packet = new DatagramPacket(datagram, datagram.length);
-        /*socket.receive(packet);
-        System.out.println("Client: Server packet, Addresse " + packet.getAddress().getHostAddress() + ", Port " + packet.getPort());
-        String received = new String(packet.getData(), 0, packet.getLength());
-        System.out.println("Client: " + received);*/
+        socketIn.receive(packet);
+        System.out.println("Client: Server packet erhalten, Addresse " + packet.getAddress().getHostAddress() + ", Port " + packet.getPort());
+        String receivedString = new String(packet.getData(), 0, packet.getLength());
+        int received = Integer.parseInt(receivedString);
+        System.out.println("Client: Nutze Port " + received);
+        port = received;
         return "";//received;
     }
 
@@ -51,13 +59,13 @@ public class UdpClient {
 
         try {
             TargetDataLine targetLine = (TargetDataLine) AudioSystem.getLine(dataInfo);
-            //SourceDataLine sourceLine = (SourceDataLine) AudioSystem.getSourceDataLine(format);
+            SourceDataLine sourceLine = (SourceDataLine) AudioSystem.getSourceDataLine(format);
             targetLine.open();
-            //sourceLine.open();
+            sourceLine.open();
 
             JOptionPane.showMessageDialog(null, "Hit Ok to start recording");
             targetLine.start();
-            //sourceLine.start();
+            sourceLine.start();
 
             int frameSizeInBytes = format.getFrameSize();
             int bufferLengthInFrames = targetLine.getBufferSize() / 8;
@@ -65,15 +73,18 @@ public class UdpClient {
 
             System.out.println("Client: ByteArray Size is " + bytes);
 
-            AudioThread audioRecord = new AudioThread(targetLine, null, bytes, address, socket);
+            AudioThread audioRecord = new AudioThread(targetLine, null, bytes, address, socketOut, false, port);
+            AudioThread audioInput = new AudioThread(null, sourceLine, bytes, address, socketIn, true, port);
             audioRecord.start();
+            audioInput.start();
             JOptionPane.showMessageDialog(null, "Hit OK for stopping");
             System.out.println("Stopping target and source line ...");
             targetLine.stop();
-            //sourceLine.stop();
+            sourceLine.stop();
             targetLine.close();
-            //sourceLine.close();
+            sourceLine.close();
             audioRecord.stopIt();
+            audioInput.stopIt();
             System.out.println("Stopped everything");
         } catch (LineUnavailableException e) {
             e.printStackTrace();
@@ -84,6 +95,7 @@ public class UdpClient {
 
     public void close(){
         System.out.println("Client: Schließe Socket ...");
-        socket.close();
+        socketIn.close();
+        socketOut.close();
     }
 }
