@@ -1,30 +1,33 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notruf Training</title>
-    <link rel="stylesheet" href="login-page.css" >
-	<script defer src="login-page.js"></script>
+        <title>Please Login</title>
+        <link rel="stylesheet" href="login-page.css">
 </head>
 
 <body>
-
-<main id="main-holder">
-	<h1 id="login-header" align="center">Kinder Notruf Trainingsapp</h1>
-	<h2 id="group-header" align="center">ein htw saar Projekt</h2>
-    
-    <div align="center" id="login-error-msg-holder">
-      <p id="login-error-msg">Invalid username <span id="error-msg-second-line">and/or password</span></p>
+    <main id="main-holder">
+        <h1 align="center" id="login-header" > Kinder Notruf Trainingsapp</h1>
+    <div>
+        <form name="f" th:action="@{/login.html}" method="post">
+            <fieldset>
+                <legend>Notruf Training App fuer Kinder - Login</legend>
+                <div th:if="${param.error}" class="alert alert-error">
+                    Falscher Nutzername und Passwort.
+                </div>
+                <div th:if="${param.logout}" class="alert alert-success">
+                    Sie wurden ausgeloggt.
+                </div>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username"/>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password"/>
+                <div class="form-actions">
+                    <button type="submit" class="btn">Log in</button>
+                </div>
+            </fieldset>
+        </form>
     </div>
-    
-    <form align="center" id="login-form">
-      <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
-      <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password">
-      <input type="submit" value="Login" id="login-form-submit">
-    </form>
-  </main>
+    </main>
 </body>
 
 </html>

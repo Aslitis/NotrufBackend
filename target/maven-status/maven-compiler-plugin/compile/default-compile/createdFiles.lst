@@ -5,12 +5,13 @@ htw\projektarbeit\ssh\Tunnel.class
 htw\projektarbeit\audioEcho\AudioThread.class
 htw\projektarbeit\webApplication\AppUser.class
 htw\projektarbeit\udpConnection\test.class
-htw\projektarbeit\webApplication\MemorySecurityConfiguration.class
 htw\projektarbeit\webApplication\UserController.class
 htw\projektarbeit\webApplication\UserNotFoundException.class
 htw\projektarbeit\audioEcho\GiveAudio.class
 htw\projektarbeit\udpConnection\UdpClient.class
+htw\projektarbeit\webApplication\LoginController.class
 htw\projektarbeit\udpConnection\UdpServer.class
+htw\projektarbeit\webApplication\SecurityConfiguration.class
 htw\projektarbeit\webApplication\UserNotFoundAdvice.class
 htw\projektarbeit\webApplication\LoadDatabase.class
 htw\projektarbeit\webApplication\UserRepo.class
