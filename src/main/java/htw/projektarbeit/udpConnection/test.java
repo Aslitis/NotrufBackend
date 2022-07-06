@@ -14,7 +14,7 @@ public class test {
     //@Before
     public void setup(String ip) throws SocketException, UnknownHostException{
         //new UdpServer().start();
-        //System.out.println("Server gestartet!");
+        System.out.println("Server gestartet!");
         client = new UdpClient(ip);
     }
 
