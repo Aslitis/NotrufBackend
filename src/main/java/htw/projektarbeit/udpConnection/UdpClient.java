@@ -25,7 +25,7 @@ public class UdpClient {
 
     public UdpClient(String ip) throws SocketException, UnknownHostException{
         socket = new DatagramSocket();
-        address = InetAddress.getByName(ip); //134.96.217.36
+        address = InetAddress.getByName(ip);
     }
 
     public String sendEcho(String msg) throws IOException{

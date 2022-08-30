@@ -14,7 +14,7 @@ loginButton.addEventListener("click", (e) => {
     if (username === 'Admin' && password === 'SicheresPasswort') {
         alert("You have successfully logged in.");
         //location.reload();
-        location.replace("website");
+        location.replace("website.html");
     } else {
         loginErrorMsg.style.opacity = 1;
     }
