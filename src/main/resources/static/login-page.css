@@ -54,6 +54,13 @@ html {
     justify-items: center;
     align-items: center;
   }
+
+  #website-form {
+    align-self: flex-start;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+  }
   
   .login-form-field::placeholder {
     color: #3a3a3a;
@@ -105,6 +112,18 @@ html {
   }
 
   #hang-up {
+    width: 100%;
+    padding: 7px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    background-color: #3a3a3a;
+    cursor: pointer;
+    outline: none;
+  }
+
+  #log {
     width: 100%;
     padding: 7px;
     border: none;

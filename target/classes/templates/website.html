@@ -14,12 +14,59 @@
     
     <form align="center" id="login-form"></form>
         <div id=”div-container1”; align="center">
-            <input type="submit" value="Anruf annehmen" id="accept-call">
+            <button id="ready" onclick="ready()">Sind Sie bereit?</button>
+        </br>
+        </br>
+            <button id="accept-call" onclick="callAccept()">Anruf annehmen</button>
             <input type="submit" value="Anruf ablehnen" id="deny-call">
-            <input type="submit" value="Auflegen" id="hang-up">
+            <button id="hang-up" onclick="hangUp()">Auflegen</button>
         </div>
+        <form name="logoutForm" th:action="@{/logout}" method="post">
+                <div class="form-actions">
+                    <button type="submit" id="log" class="btn">Log out</button>
+                </div>
+                <input type="hidden" name="name" value="default"/>
+        </form>
     </form>
 </main>
 </body>
+
+<script>function callAccept(){
+    // 1. Create a new XMLHttpRequest object
+let xhr = new XMLHttpRequest();
+
+// 2. Configure it: GET-request for the URL /article/.../load
+xhr.open('GET', '/accept');
+
+// 3. Send the request over the network
+xhr.send();
+}</script>
+
+<script>
+    function ready(){
+        // 1. Create a new XMLHttpRequest object
+let xhr = new XMLHttpRequest();
+
+// 2. Configure it: GET-request for the URL /article/.../load
+xhr.open('GET', '/ready');
+
+// 3. Send the request over the network
+xhr.send();
+}
+</script>
+
+<script>
+    function hangUp(){
+        // 1. Create a new XMLHttpRequest object
+let xhr = new XMLHttpRequest();
+
+// 2. Configure it: GET-request for the URL /article/.../load
+xhr.open('GET', '/hangUp');
+
+// 3. Send the request over the network
+xhr.send();
+}
+</script>
+
 
 </html>

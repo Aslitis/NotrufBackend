@@ -15,9 +15,18 @@ public class WebsiteController {
         return "login";
     }
 
+    //wenn nur der Seitenname ohne /login aufgerufen wird
+    //dann auf die login Seite mappen
+    @GetMapping("/")
+    public String empty(@RequestParam(name="name", required=false, defaultValue="default") String name, Model model){
+        model.addAttribute("name", name);
+        return "login";
+    }
+
     @GetMapping("/website")
     public String website(@RequestParam(name="name", required=false, defaultValue="default") String name, Model model){
         model.addAttribute("name", name);
         return "website";
     }
+
 }
