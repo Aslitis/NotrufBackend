@@ -49,6 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     /*
      * Methode zum Hardcoden der Anmeldedaten eines Nutzers
      * Rolle wird zum aktuellen Zeitpunkt nicht genutzt
+     * spaeter kann Rolle Admin noch inzugefuegt werden
      */ 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
